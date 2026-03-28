@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MCTargetDesc/ZazaMCTargetDesc.hpp"
+#include "MCTargetDesc/ZazaMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
 
 #define ZAZA_DUMP(Color)                                                       \

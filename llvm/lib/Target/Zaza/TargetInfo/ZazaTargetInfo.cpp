@@ -1,5 +1,5 @@
-#include "TargetInfo/ZazaTargetInfo.hpp"
-#include "Zaza.hpp"
+#include "TargetInfo/ZazaTargetInfo.h"
+#include "Zaza.h"
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;

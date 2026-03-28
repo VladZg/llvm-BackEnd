@@ -978,6 +978,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::ve:
   case Triple::xcore:
   case Triple::xtensa:
+  case Triple::zaza:
     return Triple::ELF;
 
   case Triple::mipsel:
@@ -1009,9 +1010,6 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
 
   case Triple::dxil:
     return Triple::DXContainer;
-
-  case Triple::zaza:
-    return T.isOSDarwin() ? Triple::MachO : Triple::ELF;
   }    
   llvm_unreachable("unknown architecture");
 }
@@ -1689,6 +1687,7 @@ unsigned Triple::getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::x86:
   case llvm::Triple::xcore:
   case llvm::Triple::xtensa:
+  case llvm::Triple::zaza:
     return 32;
 
   case llvm::Triple::aarch64:
@@ -1714,7 +1713,6 @@ unsigned Triple::getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::ve:
   case llvm::Triple::wasm64:
   case llvm::Triple::x86_64:
-  case llvm::Triple::zaza:
     return 64;
   }
   llvm_unreachable("Invalid architecture value");
@@ -1763,7 +1761,6 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::msp430:
   case Triple::systemz:
   case Triple::ve:
-  case Triple::zaza:
     T.setArch(UnknownArch);
     break;
 
@@ -1801,6 +1798,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::x86:
   case Triple::xcore:
   case Triple::xtensa:
+  case Triple::zaza:
     // Already 32-bit.
     break;
 
@@ -1852,6 +1850,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::tcele:
   case Triple::xcore:
   case Triple::xtensa:
+  case Triple::zaza:
     T.setArch(UnknownArch);
     break;
 
@@ -1877,7 +1876,6 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::ve:
   case Triple::wasm64:
   case Triple::x86_64:
-  case Triple::zaza:
     // Already 64-bit.
     break;
 

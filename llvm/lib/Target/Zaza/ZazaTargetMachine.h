@@ -1,6 +1,6 @@
 #pragma once
 
-#include "llvm/CodeGen/CodeGenTargetMachineImpl.hpp"
+#include "llvm/CodeGen/CodeGenTargetMachineImpl.h"
 #include <optional>
 
 namespace llvm {

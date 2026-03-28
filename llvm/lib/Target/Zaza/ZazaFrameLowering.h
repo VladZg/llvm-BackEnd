@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Zaza.hpp"
-#include "llvm/CodeGen/TargetFrameLowering.hpp"
+#include "Zaza.h"
+#include "llvm/CodeGen/TargetFrameLowering.h"
 
 namespace llvm {
 

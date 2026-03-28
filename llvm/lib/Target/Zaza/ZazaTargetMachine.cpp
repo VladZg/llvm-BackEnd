@@ -1,6 +1,6 @@
-#include "ZazaTargetMachine.hpp"
-#include "Zaza.hpp"
-#include "TargetInfo/ZazaTargetInfo.hpp"
+#include "ZazaTargetMachine.h"
+#include "Zaza.h"
+#include "TargetInfo/ZazaTargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
 
@@ -19,7 +19,7 @@ ZazaTargetMachine::ZazaTargetMachine(const Target &T, const Triple &TT,
                                    std::optional<CodeModel::Model> CM,
                                    CodeGenOptLevel OL, bool JIT)
     : CodeGenTargetMachineImpl(
-          T, "e-m:e-p:64:64-i8:8:32-i16:16:32-i64:64-n32", TT, CPU, FS, Options,  // FIXME: choose archoitecture
+          T, "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32", TT, CPU, FS, Options,
           Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   ZAZA_DUMP_CYAN
   initAsmInfo();
