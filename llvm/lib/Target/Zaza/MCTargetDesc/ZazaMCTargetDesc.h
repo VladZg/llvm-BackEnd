@@ -5,3 +5,6 @@
 //
 #define GET_REGINFO_ENUM
 #include "ZazaGenRegisterInfo.inc"
+
+#define GET_INSTRINFO_ENUM
+#include "ZazaGenInstrInfo.inc"
