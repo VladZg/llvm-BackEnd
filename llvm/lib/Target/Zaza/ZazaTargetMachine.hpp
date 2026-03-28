@@ -1,7 +1,6 @@
-#ifndef LLVM_LIB_TARGET_ZAZA_ZAZATARGETMACHINE_H
-#define LLVM_LIB_TARGET_ZAZA_ZAZATARGETMACHINE_H
+#pragma once
 
-#include "llvm/CodeGen/CodeGenTargetMachineImpl.h"
+#include "llvm/CodeGen/CodeGenTargetMachineImpl.hpp"
 #include <optional>
 
 namespace llvm {
@@ -17,5 +16,3 @@ public:
 };
 
 } // namespace llvm
-
-#endif
