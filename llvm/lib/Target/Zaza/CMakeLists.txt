@@ -7,6 +7,7 @@ tablegen(LLVM ZazaGenRegisterInfo.inc     -gen-register-info  )
 tablegen(LLVM ZazaGenInstrInfo.inc        -gen-instr-info     )
 tablegen(LLVM ZazaGenSubtargetInfo.inc    -gen-subtarget      )
 tablegen(LLVM ZazaGenMCPseudoLowering.inc -gen-pseudo-lowering)
+tablegen(LLVM ZazaGenDAGISel.inc          -gen-dag-isel       )
 
 add_public_tablegen_target(ZazaCommonTableGen)
 
@@ -16,6 +17,7 @@ add_llvm_target(ZazaCodeGen
   ZazaInstrInfo.cpp
   ZazaSubtarget.cpp
   ZazaAsmPrinter.cpp
+  ZazaISelDagToDag.cpp
 
   LINK_COMPONENTS
   CodeGen
@@ -24,6 +26,7 @@ add_llvm_target(ZazaCodeGen
   Target
   ZazaInfo
   AsmPrinter
+  SelectionDAG
 
   ADD_TO_COMPONENT
   Zaza

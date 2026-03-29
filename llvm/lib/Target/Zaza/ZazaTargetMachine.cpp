@@ -34,8 +34,13 @@ public:
   ZazaPassConfig(ZazaTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  ZazaTargetMachine &getZazaTargetMachine() const {
+      return getTM<ZazaTargetMachine>();
+  }
+
   bool addInstSelector() override {
     ZAZA_DUMP_CYAN
+    addPass(createZazaISelDag(getZazaTargetMachine(), getOptLevel()));
     return false;
   }
 };
