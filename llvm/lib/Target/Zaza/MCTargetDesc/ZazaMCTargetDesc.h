@@ -9,6 +9,8 @@
 #define GET_INSTRINFO_ENUM
 #include "ZazaGenInstrInfo.inc"
 
+#include <memory>
+
 namespace llvm {
 
 class MCCodeEmitter;
@@ -25,5 +27,6 @@ MCCodeEmitter *createZazaMCCodeEmitter(const MCInstrInfo &MCII, MCContext &Ctx);
 MCAsmBackend *createZazaAsmBackend(const Target &T, const MCSubtargetInfo &STI,
                                    const MCRegisterInfo &MRI,
                                    const MCTargetOptions &Options);
-
+std::unique_ptr<MCObjectTargetWriter> createZazaELFObjectWriter(bool Is64Bit,
+                                                                uint8_t OSABI);
 } // namespace llvm

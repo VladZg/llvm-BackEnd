@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMZazaDesc
   ZazaInstPrinter.cpp
   ZazaMCCodeEmitter.cpp
   ZazaAsmBackend.cpp
+  ZazaELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC
