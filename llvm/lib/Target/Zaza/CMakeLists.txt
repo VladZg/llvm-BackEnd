@@ -3,8 +3,9 @@ add_llvm_component_group(Zaza)
 
 set(LLVM_TARGET_DEFINITIONS Zaza.td)
 
-tablegen(LLVM ZazaGenRegisterInfo.inc -gen-register-info)
-tablegen(LLVM ZazaGenInstrInfo.inc    -gen-instr-info   )
+tablegen(LLVM ZazaGenRegisterInfo.inc  -gen-register-info)
+tablegen(LLVM ZazaGenInstrInfo.inc     -gen-instr-info   )
+tablegen(LLVM ZazaGenSubtargetInfo.inc -gen-subtarget    )
 
 add_public_tablegen_target(ZazaCommonTableGen)
 
@@ -12,6 +13,7 @@ add_llvm_target(ZazaCodeGen
   ZazaTargetMachine.cpp
   ZazaRegisterInfo.cpp
   ZazaInstrInfo.cpp
+  ZazaSubtarget.cpp
 
   LINK_COMPONENTS
   CodeGen

@@ -3,6 +3,7 @@
 #include "TargetInfo/ZazaTargetInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCInstrInfo.h"
+#include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;
@@ -12,6 +13,9 @@ using namespace llvm;
 
 #define GET_INSTRINFO_MC_DESC
 #include "ZazaGenInstrInfo.inc"
+
+#define GET_SUBTARGETINFO_MC_DESC
+#include "ZazaGenSubtargetInfo.inc"
 
 static MCRegisterInfo *createZazaMCRegisterInfo(const Triple &TT) {
   ZAZA_DUMP_MAGENTA
@@ -27,6 +31,12 @@ static MCInstrInfo *createZazaMCInstrInfo() {
   return X;
 }
 
+static MCSubtargetInfo *createZazaMCSubtargetInfo(const Triple &TT,
+                                                 StringRef CPU, StringRef FS) {
+  ZAZA_DUMP_MAGENTA
+  return createZazaMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   ZAZA_DUMP_MAGENTA
@@ -35,4 +45,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   TargetRegistry::RegisterMCRegInfo(TheZazaTarget, createZazaMCRegisterInfo);
   // Register the MC instruction info.
   TargetRegistry::RegisterMCInstrInfo(TheZazaTarget, createZazaMCInstrInfo);
+  // Register the MC subtarget info.
+  TargetRegistry::RegisterMCSubtargetInfo(TheZazaTarget, createZazaMCSubtargetInfo);
 }
