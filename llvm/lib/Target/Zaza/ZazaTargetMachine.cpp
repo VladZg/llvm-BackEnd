@@ -1,6 +1,7 @@
 #include "ZazaTargetMachine.h"
 #include "Zaza.h"
 #include "TargetInfo/ZazaTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
 
@@ -23,4 +24,25 @@ ZazaTargetMachine::ZazaTargetMachine(const Target &T, const Triple &TT,
           Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   ZAZA_DUMP_CYAN
   initAsmInfo();
+}
+
+namespace {
+
+/// Zaza Code Generator Pass Configuration Options.
+class ZazaPassConfig : public TargetPassConfig {
+public:
+  ZazaPassConfig(ZazaTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    ZAZA_DUMP_CYAN
+    return false;
+  }
+};
+
+} // anonymous namespace
+
+TargetPassConfig *ZazaTargetMachine::createPassConfig(PassManagerBase &PM) {
+  ZAZA_DUMP_CYAN
+  return new ZazaPassConfig(*this, PM);
 }
