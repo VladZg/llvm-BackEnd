@@ -1,5 +1,6 @@
 #include "MCTargetDesc/ZazaInfo.h"
 #include "Zaza.h"
+#include "ZazaInstPrinter.h"
 #include "ZazaMCAsmInfo.h"
 #include "TargetInfo/ZazaTargetInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
@@ -51,6 +52,15 @@ static MCAsmInfo *createZazaMCAsmInfo(const MCRegisterInfo &MRI,
   return MAI;
 }
 
+static MCInstPrinter *createZazaMCInstPrinter(const Triple &T,
+                                              unsigned SyntaxVariant,
+                                              const MCAsmInfo &MAI,
+                                              const MCInstrInfo &MII,
+                                              const MCRegisterInfo &MRI) {
+  ZAZA_DUMP_MAGENTA
+  return new ZazaInstPrinter(MAI, MII, MRI);
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   ZAZA_DUMP_MAGENTA
@@ -62,4 +72,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   TargetRegistry::RegisterMCInstrInfo(TheZazaTarget, createZazaMCInstrInfo);
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheZazaTarget, createZazaMCSubtargetInfo);
+  // Register the MCInstPrinter
+  TargetRegistry::RegisterMCInstPrinter(TheZazaTarget, createZazaMCInstPrinter);
 }
