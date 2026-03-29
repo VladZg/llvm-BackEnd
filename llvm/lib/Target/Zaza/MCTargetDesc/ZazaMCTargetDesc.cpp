@@ -76,4 +76,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   TargetRegistry::RegisterMCInstPrinter(TheZazaTarget, createZazaMCInstPrinter);
   // Register the MC Code Emitter.
   TargetRegistry::RegisterMCCodeEmitter(TheZazaTarget, createZazaMCCodeEmitter);
+  // Register the asm backend.
+  TargetRegistry::RegisterMCAsmBackend(TheZazaTarget, createZazaAsmBackend);
 }
