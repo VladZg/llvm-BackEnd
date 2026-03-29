@@ -3,7 +3,9 @@
 #include "Zaza.h"
 #include "ZazaFrameLowering.h"
 #include "ZazaISelLowering.h"
+#include "ZazaInstrInfo.h"
 #include "ZazaRegisterInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -16,6 +18,8 @@ class ZazaSubtarget : public ZazaGenSubtargetInfo {
   ZazaTargetLowering TLInfo;
   ZazaFrameLowering FrameLowering;
   ZazaRegisterInfo RegInfo;
+  ZazaInstrInfo InstrInfo;
+  SelectionDAGTargetInfo TSInfo;
 
 public:
   ZazaSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -38,6 +42,13 @@ public:
   const ZazaRegisterInfo *getRegisterInfo() const override {
     ZAZA_DUMP_CYAN
     return &RegInfo;
+  }
+
+  const ZazaInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    ZAZA_DUMP_CYAN
+    return &TSInfo;
   }
 };
 
