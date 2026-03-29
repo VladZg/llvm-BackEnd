@@ -1,10 +1,13 @@
 #include "MCTargetDesc/ZazaInfo.h"
 #include "Zaza.h"
+#include "ZazaMCAsmInfo.h"
 #include "TargetInfo/ZazaTargetInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
@@ -37,10 +40,22 @@ static MCSubtargetInfo *createZazaMCSubtargetInfo(const Triple &TT,
   return createZazaMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 }
 
+static MCAsmInfo *createZazaMCAsmInfo(const MCRegisterInfo &MRI,
+                                      const Triple &TT,
+                                      const MCTargetOptions &Options) {
+  ZAZA_DUMP_MAGENTA
+  MCAsmInfo *MAI = new ZazaELFMCAsmInfo(TT);
+  unsigned SP = MRI.getDwarfRegNum(Zaza::R1, true);
+  MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+  MAI->addInitialFrameState(Inst);
+  return MAI;
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeZazaTargetMC() {
   ZAZA_DUMP_MAGENTA
   Target &TheZazaTarget = getTheZazaTarget();
+  RegisterMCAsmInfoFn X(TheZazaTarget, createZazaMCAsmInfo);
   // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheZazaTarget, createZazaMCRegisterInfo);
   // Register the MC instruction info.
