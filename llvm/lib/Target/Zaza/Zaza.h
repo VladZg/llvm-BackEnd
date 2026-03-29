@@ -16,7 +16,7 @@
 #define ZAZA_DUMP_YELLOW  ZAZA_DUMP(llvm::raw_ostream::YELLOW )
 #define ZAZA_DUMP_CYAN    ZAZA_DUMP(llvm::raw_ostream::CYAN   )
 #define ZAZA_DUMP_MAGENTA ZAZA_DUMP(llvm::raw_ostream::MAGENTA)
-#define ZAZA_DUMP_WHITE    Zaza_DUMP(llvm::raw_ostream::WHITE )
+#define ZAZA_DUMP_WHITE   ZAZA_DUMP(llvm::raw_ostream::WHITE  )
 
 namespace llvm {
 class ZazaTargetMachine;

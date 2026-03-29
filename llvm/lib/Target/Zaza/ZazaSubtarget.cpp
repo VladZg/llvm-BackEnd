@@ -10,8 +10,10 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "ZazaGenSubtargetInfo.inc"
 
-ZazaSubtarget::ZazaSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                           const StringRef &FS, const TargetMachine &TM)
-    : ZazaGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
-  ZAZA_DUMP_CYAN
+ZazaSubtarget::ZazaSubtarget(const Triple &TT, const std::string &CPU,
+                             const std::string &FS, const TargetMachine &TM)
+    : ZazaGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS)
+    , TLInfo(TM, *this)
+    , FrameLowering(*this) {
+    ZAZA_DUMP_CYAN
 }

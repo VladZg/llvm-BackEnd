@@ -18,6 +18,7 @@ add_llvm_target(ZazaCodeGen
   ZazaSubtarget.cpp
   ZazaAsmPrinter.cpp
   ZazaISelDagToDag.cpp
+  ZazaISelLowering.cpp
 
   LINK_COMPONENTS
   CodeGen

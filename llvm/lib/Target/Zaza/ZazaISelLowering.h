@@ -21,4 +21,17 @@ enum NodeType : unsigned {
 
 } // namespace ZazaISD
 
+class ZazaTargetLowering : public TargetLowering {
+public:
+  explicit ZazaTargetLowering(const TargetMachine &TM, const ZazaSubtarget &STI);
+
+  /// This method returns the name of a target specific DAG node.
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
+  ZazaSubtarget const &getSubtarget() const { return STI; }
+
+private:
+  const ZazaSubtarget &STI;
+};
+
 } // namespace llvm
