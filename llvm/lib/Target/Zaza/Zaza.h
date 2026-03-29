@@ -21,7 +21,19 @@
 namespace llvm {
 class ZazaTargetMachine;
 class FunctionPass;
+class ZazaSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
 
+bool lowerZazaMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                   AsmPrinter &AP);
+bool LowerZazaMachineOperandToMCOperand(const MachineOperand &MO,
+                                        MCOperand &MCOp, const AsmPrinter &AP);
 FunctionPass *createZazaISelDag(ZazaTargetMachine &TM, CodeGenOptLevel OptLevel);
 
 } // namespace llvm

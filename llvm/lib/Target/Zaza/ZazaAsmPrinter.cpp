@@ -38,6 +38,11 @@ public:
   StringRef getPassName() const override { return "Zaza Assembly Printer"; }
 
   bool lowerPseudoInstExpansion(const MachineInstr *MI, MCInst &Inst);
+
+  // Used in pseudo lowerings
+  bool lowerOperand(const MachineOperand &MO, MCOperand &MCOp) const {
+    return LowerZazaMachineOperandToMCOperand(MO, MCOp, *this);
+  }
 };
 
 } // anonymous namespace
@@ -53,6 +58,10 @@ void ZazaAsmPrinter::emitInstruction(const MachineInstr *MI) {
     EmitToStreamer(*OutStreamer, OutInst);
     return;
   }
+
+  MCInst TmpInst;
+  if (!lowerZazaMachineInstrToMCInst(MI, TmpInst, *this))
+    EmitToStreamer(*OutStreamer, TmpInst);
 }
 
 // Force static initialization.
