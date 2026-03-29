@@ -1,6 +1,7 @@
 add_llvm_component_library(LLVMZazaDesc
   ZazaMCTargetDesc.cpp
   ZazaMCAsmInfo.cpp
+  ZazaInstPrinter.cpp
 
   LINK_COMPONENTS
   MC
