@@ -1,6 +1,7 @@
 #include "ZazaTargetMachine.h"
 #include "Zaza.h"
 #include "TargetInfo/ZazaTargetInfo.h"
+#include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
@@ -21,7 +22,8 @@ ZazaTargetMachine::ZazaTargetMachine(const Target &T, const Triple &TT,
                                    CodeGenOptLevel OL, bool JIT)
     : CodeGenTargetMachineImpl(
           T, "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32", TT, CPU, FS, Options,
-          Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL) {
+          Reloc::Static, getEffectiveCodeModel(CM, CodeModel::Small), OL)
+    , TLOF(std::make_unique<TargetLoweringObjectFileELF>()) {
   ZAZA_DUMP_CYAN
   initAsmInfo();
 }
@@ -50,4 +52,9 @@ public:
 TargetPassConfig *ZazaTargetMachine::createPassConfig(PassManagerBase &PM) {
   ZAZA_DUMP_CYAN
   return new ZazaPassConfig(*this, PM);
+}
+
+TargetLoweringObjectFile *ZazaTargetMachine::getObjFileLowering() const {
+  ZAZA_DUMP_CYAN
+  return TLOF.get();
 }
