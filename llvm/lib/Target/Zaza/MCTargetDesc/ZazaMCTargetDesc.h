@@ -8,3 +8,13 @@
 
 #define GET_INSTRINFO_ENUM
 #include "ZazaGenInstrInfo.inc"
+
+namespace llvm {
+
+class MCCodeEmitter;
+class MCContext;
+class MCInstrInfo;
+
+MCCodeEmitter *createZazaMCCodeEmitter(const MCInstrInfo &MCII, MCContext &Ctx);
+
+} // namespace llvm

@@ -10,6 +10,7 @@ tablegen(LLVM ZazaGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM ZazaGenDAGISel.inc          -gen-dag-isel       )
 tablegen(LLVM ZazaGenCallingConv.inc      -gen-callingconv    )
 tablegen(LLVM ZazaGenAsmWriter.inc        -gen-asm-writer     )
+tablegen(LLVM ZazaGenMCCodeEmitter.inc    -gen-emitter        )
 
 add_public_tablegen_target(ZazaCommonTableGen)
 
